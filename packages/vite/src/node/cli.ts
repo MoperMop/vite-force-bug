@@ -216,8 +216,15 @@ cli
       const hasExistingLogs =
         process.stdout.bytesWritten > 0 || process.stderr.bytesWritten > 0
 
+      const color =
+        'force' in server.config.server ? colors.red : (str: string) => str
+      const forceString =
+        // @ts-expect-error - force shouldn't be part of server
+        color(`server.force = ${server.config.server.force}\n`) +
+        `optimizeDeps.force = ${server.config.optimizeDeps.force}`
+
       info(
-        `\n  ${colors.green(
+        `\n${forceString}\n  ${colors.green(
           `${colors.bold('VITE')} v${VERSION}`,
         )}${modeString}  ${startupDurationString}\n`,
         {

@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Force Bug</title>
+  </head>
+  <body>
+    <ol>
+      <li>
+        Run <code>pnpm run dev</code>.
+        <ul>
+          <li>This will run <code>vite</code> without any options.</li>
+          <li><code>server.force</code> should be <code>undefined</code>.</li>
+          <li><code>optimizeDeps.force</code> should be <code>false</code>.</li>
+        </ul>
+      </li>
+      <li>
+        Run <code>pnpm run dev1</code>.
+        <ul>
+          <li>This will run <code>vite --force</code>.</li>
+          <li>
+            <code>server.force</code> should be <code>true</code>,
+            <em>this is the bug</em>.
+          </li>
+          <li><code>optimizeDeps.force</code> should be <code>true</code>.</li>
+        </ul>
+      </li>
+      <li>
+        Run <code>pnpm run dev2</code>.
+        <ul>
+          <li>
+            This will run <code>vite -c force.config.ts</code>, which configures
+            <code>optimizeDeps.force</code> to <code>true</code>.
+          </li>
+          <li><code>server.force</code> should be <code>undefined</code>.</li>
+          <li><code>optimizeDeps.force</code> should be <code>true</code>.</li>
+        </ul>
+      </li>
+    </ol>
+  </body>
+</html>
